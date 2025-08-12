@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3e5f5; /* Light purple */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+            font-size: 2.5rem;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px #aaa;
+        }
+
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            background-color: #2196f3; /* Blue */
+            color: white;
+            border-left: 5px solid #0d47a1;
+            margin: 15px auto;
+            padding: 15px;
+            max-width: 600px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .task-list li:hover {
+            background-color: #1976d2;
+            transform: scale(1.02);
+        }
+
+        .task-status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            background-color: #ffffff88;
+            color: black;
+        }
+
+        .completed {
+            background-color: #a5d6a7; /* Light green */
+        }
+
+        .pending {
+            background-color: #fff59d; /* Light yellow */
+        }
+
+        .incomplete {
+            background-color: #ef9a9a; /* Light red */
+        }
+
+        .no-tasks {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #757575;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Task List</h2>
+    <ul id="taskList" class="task-list"></ul>
+    <p id="noTasksMsg" class="no-tasks">No tasks available.</p>
+
+    <script>
+        const tasks = [
+            {
+                title: "Design the homepage",
+                description: "Create wireframes and UI mockups",
+                status: "pending",
+            },
+            {
+                title: "Develop login system",
+                description: "Implement using HTML, CSS, JS only",
+                status: "completed",
+            },
+            {
+                title: "Fix mobile responsiveness",
+                description: "Media queries and flex adjustments",
+                status: "incomplete",
+            },
+        ];
+
+        function loadTasks() {
+            const taskList = document.getElementById("taskList");
+            const noTasksMsg = document.getElementById("noTasksMsg");
+            taskList.innerHTML = "";
+
+            if (tasks.length === 0) {
+                noTasksMsg.style.display = "block";
+                return;
+            }
+
+            noTasksMsg.style.display = "none";
+
+            tasks.forEach((task) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <div>${task.title}</div>
+                    <div style="font-size: 0.9rem; font-weight: normal;">${task.description}</div>
+                    <span class="task-status ${task.status}">${task.status.charAt(0).toUpperCase() + task.status.slice(1)}</span>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+
+        window.onload = loadTasks;
+    </script>
+</body>
+</html>
